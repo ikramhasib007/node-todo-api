@@ -18,7 +18,7 @@ app.post('/todos', (req, res) => {
         res.send(result);
     }, (err) => {
         res.status(400).send(err);
-    })
+    });
 });
 
 app.get('/todos', (req, res) => {
@@ -26,8 +26,8 @@ app.get('/todos', (req, res) => {
         res.send({todos})
     }, (err) => {
         res.status(400).send(err);
-    })
-})
+    });
+});
 
 
 app.listen(3000, () => {
