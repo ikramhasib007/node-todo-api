@@ -13,7 +13,7 @@ app.post('/todos', (req, res) => {
     const todo = new Todo({
         text: req.body.text
     });
-    
+
     todo.save().then((result) => {
         res.send(result);
     }, (err) => {
@@ -22,7 +22,8 @@ app.post('/todos', (req, res) => {
 });
 
 
-
 app.listen(3000, () => {
     console.log('Server started on port 3000');
-})
+});
+
+module.exports = {app};
