@@ -1,3 +1,5 @@
+require('./config/config');
+
 const express = require('express');
 const bodyParser = require('body-parser');
 const _ = require('lodash');
@@ -66,7 +68,7 @@ app.delete('/todos/:id', (req, res) => {
 
 app.patch('/todos/:id', (req, res) => {
     var id = req.params.id;
-    
+
     if(!ObjectID.isValid(id)) {
         return res.status(404).send();
     }
