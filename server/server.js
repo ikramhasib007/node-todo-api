@@ -8,6 +8,7 @@ const {mongoose} = require('./db/mongoose');
 const {User} = require('./models/user');
 const {Todo} = require('./models/todo');
 const {ObjectID} = require('mongodb');
+const {authenticate} = require('./middleware/authenticate');
 
 const app = express();
 const port = process.env.PORT || 3000;
@@ -100,8 +101,16 @@ app.post('/users', (req, res) => {
     }).then((token) => {
         res.header('x-auth', token).send(user);
     }).catch((err) => {
-        res.status(400).send(err);
+        if(err.name === 'MongoError' && err.code === 11000) {
+            res.status(400).send({message:'There was a duplicate key error'});
+        } else {
+            res.status(400).send(err);
+        }
     });
+});
+
+app.get('/users/me', authenticate, (req, res) => {
+    res.send(req.user);
 });
 
 
